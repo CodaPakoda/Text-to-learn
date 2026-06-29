@@ -1,0 +1,210 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+.dashboard{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+
+    width:250px;
+
+    background:#1F2937;
+
+    color:white;
+
+    padding:30px 20px;
+
+}
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.logo h2{
+
+    font-size:24px;
+
+}
+
+.sidebar ul{
+
+    list-style:none;
+
+}
+
+.sidebar li{
+
+    margin-bottom:18px;
+
+}
+
+.sidebar a{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:16px;
+
+    display:block;
+
+    padding:10px 12px;
+
+    border-radius:6px;
+
+}
+
+.sidebar a:hover{
+
+    background:#374151;
+
+}
+
+.content{
+
+    flex:1;
+
+    padding:40px;
+
+}
+
+.content h1{
+
+    margin-bottom:25px;
+
+    font-size:32px;
+
+}
+
+form{
+
+    max-width:650px;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+input,
+textarea,
+select{
+
+    margin-bottom:18px;
+
+    padding:12px;
+
+    font-size:16px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:6px;
+
+}
+
+textarea{
+
+    resize:vertical;
+
+}
+
+button{
+
+    padding:14px;
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:6px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:#1D4ED8;
+
+}
+.course-card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+
+}
+
+.course-card h2{
+
+    margin-bottom:10px;
+
+}
+
+.course-card p{
+
+    margin-bottom:10px;
+
+}
+
+.course-card a{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:#2563EB;
+
+    padding:10px 16px;
+
+    border-radius:6px;
+
+}
+
+.course-card a:hover{
+
+    background:#1D4ED8;
+
+}
+
+.empty{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:8px;
+
+    text-align:center;
+
+    color:#6B7280;
+
+}

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | TextToLearn</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans:["Inter","sans-serif"]
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-[#F8F8F6] font-sans">
+
+<div class="flex min-h-screen">
+
+    <%- include("partials/sidebar") %>
+
+    <main class="flex-1 overflow-y-auto bg-[#F8F8F6]">
+
+        <div class="mx-auto max-w-6xl px-10 py-10">
+
+            <div>
+
+                <h1 class="text-4xl font-bold text-[#222831]">
+
+                    My Profile
+
+                </h1>
+
+                <p class="mt-2 text-[#6B7280]">
+
+                    Track your learning journey and manage your account.
+
+                </p>
+
+            </div>
+
+            <div class="mt-8">
+
+                <%- include("partials/message") %>
+
+            </div>
+
+            <% if(user){ %>
+
+            <div class="mt-10 grid gap-6 lg:grid-cols-[360px_1fr]">
+
+                <div class="rounded-3xl border border-[#E8E4DC] bg-white p-8 shadow-sm">
+
+                    <div class="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-[#222831] text-4xl font-bold text-white">
+
+                        <%= user.username.charAt(0).toUpperCase() %>
+
+                    </div>
+
+                    <h2 class="mt-6 text-center text-3xl font-bold text-[#222831]">
+
+                        <%= user.username %>
+
+                    </h2>
+
+                    <p class="mt-2 text-center text-[#6B7280]">
+
+                        <%= user.email %>
+
+                    </p>
+
+                    <div class="mt-8 rounded-2xl bg-[#F8F8F6] p-5">
+
+                        <p class="text-sm font-medium text-[#6B7280]">
+
+                            Member Since
+
+                        </p>
+
+                        <p class="mt-2 font-semibold text-[#222831]">
+
+                            <%= new Date(user.createdAt).toLocaleDateString() %>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+
+                    <div class="rounded-3xl border border-[#E8E4DC] bg-white p-6 shadow-sm">
+
+                        <p class="text-sm font-medium text-[#6B7280]">
+
+                            Total Courses
+
+                        </p>
+
+                        <h2 class="mt-3 text-5xl font-black text-[#222831]">
+
+                            <%= ongoingCourses + completedCourses %>
+
+                        </h2>
+
+                    </div>
+
+                    <div class="rounded-3xl border border-[#E8E4DC] bg-white p-6 shadow-sm">
+
+                        <p class="text-sm font-medium text-[#6B7280]">
+
+                            Ongoing
+
+                        </p>
+
+                        <h2 class="mt-3 text-5xl font-black text-[#948979]">
+
+                            <%= ongoingCourses %>
+
+                        </h2>
+
+                    </div>
+
+                    <div class="rounded-3xl border border-[#E8E4DC] bg-white p-6 shadow-sm">
+
+                        <p class="text-sm font-medium text-[#6B7280]">
+
+                            Completed
+
+                        </p>
+
+                        <h2 class="mt-3 text-5xl font-black text-green-600">
+
+                            <%= completedCourses %>
+
+                        </h2>
+
+                    </div>
+
+                    <div class="rounded-3xl border border-[#E8E4DC] bg-white p-6 shadow-sm">
+
+                        <p class="text-sm font-medium text-[#6B7280]">
+
+                            Completion Rate
+
+                        </p>
+
+                        <h2 class="mt-3 text-5xl font-black text-[#222831]">
+
+                            <%= (ongoingCourses + completedCourses) === 0 ? 0 : Math.round((completedCourses/(ongoingCourses+completedCourses))*100) %>%
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-12">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <h2 class="text-3xl font-bold text-[#222831]">
+
+                            Continue Learning
+
+                        </h2>
+
+                        <p class="mt-1 text-[#6B7280]">
+
+                            Pick up where you left off.
+
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="/course/ongoing"
+                        class="font-semibold text-[#948979] transition hover:text-[#7D7467]">
+
+                        View All →
+
+                    </a>
+
+                </div>
+
+                <% if(ongoingList.length===0){ %>
+
+                <div class="mt-6 rounded-3xl border border-dashed border-[#E8E4DC] bg-white py-14 text-center">
+
+                    <h3 class="text-2xl font-semibold text-[#393E46]">
+
+                        No Ongoing Courses
+
+                    </h3>
+
+                    <p class="mt-3 text-[#6B7280]">
+
+                        Generate a course to begin learning.
+
+                    </p>
+
+                    <a
+                        href="/course/generate"
+                        class="mt-8 inline-block rounded-xl bg-[#222831] px-6 py-3 font-semibold text-white transition hover:bg-[#393E46]">
+
+                        Generate Course
+
+                    </a>
+
+                </div>
+
+                <% }else{ %>
+
+                <div class="mt-6 grid gap-6 md:grid-cols-3">
+
+                    <% ongoingList.forEach(course=>{ %>
+
+                                            <a
+                        href="/course/<%= course._id %>"
+                        class="group rounded-3xl border border-[#E8E4DC] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#CAAA98] hover:shadow-lg">
+
+                        <div class="flex items-center justify-between">
+
+                            <span class="rounded-full border border-[#E8E4DC] bg-[#DFD0B8] px-3 py-1 text-xs font-semibold text-[#222831]">
+
+                                <%= course.difficulty %>
+
+                            </span>
+
+                            <span class="text-sm font-bold text-[#6B7280]">
+
+                                <%= course.progress %>%
+
+                            </span>
+
+                        </div>
+
+                        <h3 class="mt-5 line-clamp-2 text-xl font-bold text-[#222831]">
+
+                            <%= course.title %>
+
+                        </h3>
+
+                        <div class="mt-6 h-2 overflow-hidden rounded-full bg-[#E8E4DC]">
+
+                            <div
+                                class="h-full rounded-full
+                                <%= course.progress < 10 ? 'bg-red-500'
+                                : course.progress < 30 ? 'bg-amber-500'
+                                : course.progress < 90 ? 'bg-[#948979]'
+                                : 'bg-emerald-500' %>"
+                                style="width:<%= course.progress %>%">
+
+                            </div>
+
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-between">
+
+                            <span class="font-semibold text-[#948979]">
+
+                                Continue
+
+                            </span>
+
+                            <span class="text-xl transition-transform duration-300 group-hover:translate-x-2">
+
+                                →
+
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                    <% }) %>
+
+                </div>
+
+                <% } %>
+
+            </div>
+
+            <div class="mt-14">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <h2 class="text-3xl font-bold text-[#222831]">
+
+                            Recently Completed
+
+                        </h2>
+
+                        <p class="mt-1 text-[#6B7280]">
+
+                            Courses you've successfully finished.
+
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="/course/completed"
+                        class="font-semibold text-green-600 transition hover:text-green-700">
+
+                        View All →
+
+                    </a>
+
+                </div>
+
+                <% if(completedList.length===0){ %>
+
+                <div class="mt-6 rounded-3xl border border-dashed border-[#E8E4DC] bg-white py-14 text-center">
+
+                    <h3 class="text-2xl font-semibold text-[#393E46]">
+
+                        No Completed Courses
+
+                    </h3>
+
+                    <p class="mt-3 text-[#6B7280]">
+
+                        Complete a course to see it here.
+
+                    </p>
+
+                </div>
+
+                <% }else{ %>
+
+                <div class="mt-6 grid gap-6 md:grid-cols-3">
+
+                    <% completedList.forEach(course=>{ %>
+
+                                            <a
+                        href="/course/<%= course._id %>"
+                        class="group rounded-3xl border border-[#E8E4DC] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-green-300 hover:shadow-lg">
+
+                        <div class="flex items-center justify-between">
+
+                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+
+                                Completed
+
+                            </span>
+
+                            <span class="text-xl text-green-600">
+
+                                ✓
+
+                            </span>
+
+                        </div>
+
+                        <h3 class="mt-5 line-clamp-2 text-xl font-bold text-[#222831]">
+
+                            <%= course.title %>
+
+                        </h3>
+
+                        <div class="mt-6 h-2 overflow-hidden rounded-full bg-[#E8E4DC]">
+
+                            <div
+                                class="h-full w-full rounded-full bg-green-500">
+
+                            </div>
+
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-between">
+
+                            <span class="font-semibold text-green-600">
+
+                                View Course
+
+                            </span>
+
+                            <span class="text-xl transition-transform duration-300 group-hover:translate-x-2">
+
+                                →
+
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                    <% }) %>
+
+                </div>
+
+                <% } %>
+
+            </div>
+
+            <div class="mt-14 rounded-3xl border border-[#E8E4DC] bg-white p-8 shadow-sm">
+
+                <h2 class="text-2xl font-bold text-[#222831]">
+
+                    Quick Actions
+
+                </h2>
+
+                <p class="mt-2 text-[#6B7280]">
+
+                    Jump to the most frequently used sections.
+
+                </p>
+
+                <div class="mt-8 grid gap-5 md:grid-cols-3">
+
+                    <a
+                        href="/course/generate"
+                        class="rounded-2xl bg-[#222831] px-6 py-5 text-center font-semibold text-white transition hover:bg-[#393E46]">
+
+                        + Generate Course
+
+                    </a>
+
+                    <a
+                        href="/course/ongoing"
+                        class="rounded-2xl border border-[#E8E4DC] bg-white px-6 py-5 text-center font-semibold text-[#393E46] transition hover:bg-[#F8F8F6]">
+
+                        Ongoing Courses
+
+                    </a>
+
+                    <a
+                        href="/course/completed"
+                        class="rounded-2xl border border-[#E8E4DC] bg-white px-6 py-5 text-center font-semibold text-[#393E46] transition hover:bg-[#F8F8F6]">
+
+                        Completed Courses
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <% } %>
+
+                    </div>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

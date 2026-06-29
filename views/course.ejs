@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= course.title %> | TextToLearn</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ["Inter", "sans-serif"]
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-[#F8F8F6] font-sans">
+
+<div class="flex min-h-screen">
+
+    <%- include("partials/sidebar") %>
+
+    <main class="flex-1 overflow-y-auto bg-[#F8F8F6]">
+
+        <div class="mx-auto max-w-6xl px-10 py-10">
+
+            <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+
+                <div class="flex-1">
+
+                    <h1 class="text-5xl font-black tracking-tight text-[#222831]">
+
+                        <%= course.title.replace(/\b[a-z]/g,c=>c.toUpperCase()) %>
+
+                    </h1>
+
+                    <p class="mt-4 max-w-3xl text-lg leading-8 text-[#6B7280]">
+
+                        <%= course.description %>
+
+                    </p>
+
+                    <div class="mt-6 flex flex-wrap gap-3">
+
+                        <span class="rounded-full border border-[#E8E4DC] bg-[#DFD0B8] px-4 py-2 text-sm font-semibold text-[#222831]">
+
+                            <%= course.difficulty %>
+
+                        </span>
+
+                        <span class="rounded-full border border-[#E8E4DC] bg-white px-4 py-2 text-sm font-semibold text-[#393E46]">
+
+                            <%= course.duration %>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="w-full lg:w-72">
+
+                    <div class="mb-3 flex items-center justify-between">
+
+                        <span class="text-sm font-semibold text-[#6B7280]">
+
+                            Overall Progress
+
+                        </span>
+
+                        <span class="text-sm font-bold text-[#222831]">
+
+                            <%= course.progress %>%
+
+                        </span>
+
+                    </div>
+
+                    <div class="h-3 overflow-hidden rounded-full bg-[#E8E4DC]">
+
+                        <div
+                            class="h-full rounded-full <%= course.progress < 10 ? 'bg-red-500' : course.progress < 30 ? 'bg-amber-500' : course.progress < 90 ? 'bg-[#948979]' : 'bg-emerald-500' %>"
+                            style="width:<%= course.progress %>%">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-10">
+
+                <%- include("partials/message") %>
+
+            </div>
+
+            <div class="mt-10 space-y-8">
+
+                <%
+                const icons = [
+                    "fa-book-open",
+                    "fa-brain",
+                    "fa-code",
+                    "fa-database",
+                    "fa-shield-halved",
+                    "fa-rocket",
+                    "fa-cubes",
+                    "fa-cloud"
+                ];
+                %>
+
+                                <% course.modules.forEach((module,moduleIndex)=>{ %>
+
+                <div class="module-card overflow-hidden rounded-3xl border border-[#E8E4DC] bg-white shadow-sm transition-all duration-300 hover:border-[#CAAA98] hover:shadow-lg">
+
+                    <button
+                        type="button"
+                        class="module-toggle flex w-full items-center justify-between bg-white px-8 py-6 text-left">
+
+                        <div class="flex items-center gap-4">
+
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F4F1EB]">
+
+                                <i class="fa-solid <%= icons[moduleIndex % icons.length] %> text-[#948979]"></i>
+
+                            </div>
+
+                            <div>
+
+                                <p class="text-sm font-semibold uppercase tracking-wide text-[#948979]">
+
+                                    Module <%= moduleIndex + 1 %>
+
+                                </p>
+
+                                <h2 class="mt-1 text-2xl font-bold text-[#222831]">
+
+                                    <%= module.title %>
+
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-center gap-4">
+
+                            <span class="rounded-full border border-[#E8E4DC] bg-[#F8F8F6] px-4 py-2 text-sm font-medium text-[#6B7280]">
+
+                                <%= module.chapters.length %> Chapters
+
+                            </span>
+
+                            <svg
+                                class="chevron h-5 w-5 text-[#6B7280] transition-transform duration-300"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"/>
+
+                            </svg>
+
+                        </div>
+
+                    </button>
+
+                    <div class="module-content hidden border-t border-[#E8E4DC] bg-[#FAF9F6]">
+
+                        <div class="grid gap-4 p-6">
+
+                            <% module.chapters.forEach((chapter,chapterIndex)=>{ %>
+
+                            <div class="flex items-center justify-between rounded-2xl border border-[#E8E4DC] bg-white px-6 py-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#CAAA98] hover:shadow-md">
+
+                                <div class="flex items-center gap-4">
+
+                                    <% if(chapter.completed){ %>
+
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+
+                                        <i class="fa-solid fa-check"></i>
+
+                                    </div>
+
+                                    <% }else{ %>
+
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#F4F1EB] font-semibold text-[#6B7280]">
+
+                                        <%= chapterIndex + 1 %>
+
+                                    </div>
+
+                                    <% } %>
+
+                                    <div>
+
+                                        <h3 class="font-semibold text-[#222831]">
+
+                                            <%= chapter.title %>
+
+                                        </h3>
+
+                                        <p class="mt-1 text-sm text-[#6B7280]">
+
+                                            <%= chapter.completed ? "Completed" : "Not Started" %>
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <a
+                                    href="/course/<%= course._id %>/chapter/<%= moduleIndex %>/<%= chapterIndex %>"
+                                    class="rounded-xl bg-[#222831] px-6 py-2.5 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#393E46] hover:shadow-md">
+
+                                    Open
+
+                                </a>
+
+                            </div>
+
+                            <% }) %>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <% }) %>
+
+            </div>
+
+        </div>
+
+            </main>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const cards = document.querySelectorAll(".module-card");
+
+    cards.forEach((card, index) => {
+
+        const toggle = card.querySelector(".module-toggle");
+        const content = card.querySelector(".module-content");
+        const chevron = card.querySelector(".chevron");
+
+        if (index === 0) {
+
+            content.classList.remove("hidden");
+            chevron.classList.add("rotate-180");
+
+        }
+
+        toggle.addEventListener("click", () => {
+
+            const opened = !content.classList.contains("hidden");
+
+            cards.forEach((item) => {
+
+                item.querySelector(".module-content").classList.add("hidden");
+                item.querySelector(".chevron").classList.remove("rotate-180");
+
+            });
+
+            if (!opened) {
+
+                content.classList.remove("hidden");
+                chevron.classList.add("rotate-180");
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

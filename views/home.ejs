@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>TextToLearn</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ["Inter", "sans-serif"]
+
+                    },
+
+                    colors: {
+
+                        primary: "#222831",
+
+                        secondary: "#393E46",
+
+                        accent: "#948979",
+
+                        cream: "#DFD0B8"
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-white font-sans text-primary">
+
+<div class="relative overflow-hidden">
+
+    <!-- Background -->
+
+    <div class="absolute inset-0 -z-10">
+
+        <div
+            class="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-cream/20 blur-3xl">
+
+        </div>
+
+        <div
+            class="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:64px_64px] opacity-[0.22]">
+
+        </div>
+
+    </div>
+
+    <!-- Navbar -->
+
+    <header
+        class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl">
+
+        <div
+            class="mx-auto flex h-20 max-w-7xl items-center justify-between px-8">
+
+            <a
+                href="/"
+                class="text-3xl font-black tracking-tight">
+
+                <span class="text-accent">
+
+                    Text
+
+                </span>ToLearn
+
+            </a>
+
+            <nav
+                class="hidden items-center gap-10 text-sm font-medium md:flex">
+
+                <a
+                    href="#features"
+                    class="transition hover:text-accent">
+
+                    Features
+
+                </a>
+
+                <a
+                    href="#workflow"
+                    class="transition hover:text-accent">
+
+                    What We Do
+
+                </a>
+
+                <a
+                    href="/auth/login"
+                    class="transition hover:text-accent">
+
+                    Login
+
+                </a>
+
+                <a
+                    href="/course/generate"
+                    class="rounded-2xl bg-primary px-6 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-secondary">
+
+                    Generate Course
+
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <!-- Hero -->
+
+    <section
+        class="mx-auto max-w-7xl px-8 pb-24 pt-20">
+
+        <div
+            class="mx-auto max-w-3xl text-center">
+
+            <h1
+                class="mt-8 text-5xl font-black leading-tight tracking-tight lg:text-7xl">
+
+                Learn with
+
+                <span class="text-accent">
+
+                    structure,
+
+                </span>
+
+                powered by AI.
+
+            </h1>
+
+            <p
+                class="mx-auto mt-8 max-w-2xl text-lg leading-9 text-slate-600">
+
+                Generate complete learning paths with organized modules,
+                interactive chapters, code examples, curated practice
+                questions and progress tracking—all from a single prompt.
+
+            </p>
+
+        </div>
+
+        <div
+            class="mt-20 grid gap-8 lg:grid-cols-[420px_1fr]">
+
+                    <!-- Prompt Card -->
+
+        <div
+            class="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl">
+
+            <div
+                class="border-b border-slate-200 px-7 py-5">
+
+                <div class="flex items-center justify-between">
+
+                    <div>
+
+                        <p
+                            class="text-xs font-bold uppercase tracking-[0.25em] text-accent">
+
+                            AI PROMPT
+
+                        </p>
+
+                        <h2
+                            class="mt-2 text-2xl font-bold">
+
+                            Describe what you want to learn
+
+                        </h2>
+
+                    </div>
+
+                    <div
+                        class="rounded-xl bg-cream/20 px-4 py-2 text-sm font-semibold text-accent">
+
+                        Gemini
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="p-7">
+
+                <div
+                    class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+
+<textarea
+id="heroPrompt"
+rows="5"
+class="w-full resize-none bg-transparent text-base leading-8 outline-none"
+placeholder="Example:
+
+Create a complete Data Structures course for interview preparation with code examples, practice problems and YouTube resources."></textarea>
+
+                </div>
+
+                <div class="mt-6 grid grid-cols-2 gap-4">
+
+                    <div
+                        class="rounded-2xl border border-slate-200 p-4">
+
+                        <p
+                            class="text-xs font-semibold uppercase tracking-wider text-slate-500">
+
+                            Difficulty
+
+                        </p>
+
+                        <p
+                            class="mt-2 font-semibold">
+
+                            Intermediate
+
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="rounded-2xl border border-slate-200 p-4">
+
+                        <p
+                            class="text-xs font-semibold uppercase tracking-wider text-slate-500">
+
+                            Duration
+
+                        </p>
+
+                        <p
+                            class="mt-2 font-semibold">
+
+                            6 Weeks
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="generateBtn"
+                    class="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-primary px-6 py-4 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-secondary">
+
+                    ✨ Generate Course
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- Live Demo -->
+
+        <div
+            class="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl">
+
+            <div
+                class="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-6 py-4">
+
+                <div class="h-3 w-3 rounded-full bg-red-400"></div>
+
+                <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+
+                <div class="h-3 w-3 rounded-full bg-green-400"></div>
+
+                <span
+                    class="ml-4 text-sm font-semibold text-slate-500">
+
+                    AI Preview
+
+                </span>
+
+            </div>
+
+            <div
+                class="flex h-[540px] flex-col justify-between p-8">
+
+                <div>
+
+                    <div
+                        class="inline-flex rounded-full bg-cream/20 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-accent">
+
+                        LIVE DEMO
+
+                    </div>
+
+                    <h2
+                        class="mt-6 text-3xl font-black">
+
+                        Your course appears here.
+
+                    </h2>
+
+                    <p
+                        class="mt-4 max-w-md leading-8 text-slate-600">
+
+                        Click <strong>Generate Course</strong> to watch AI
+                        build a complete learning roadmap.
+
+                    </p>
+
+                </div>
+
+                <div
+                    class="space-y-5">
+
+                    <div class="h-4 w-3/4 rounded bg-slate-200"></div>
+
+                    <div class="h-4 w-2/3 rounded bg-slate-200"></div>
+
+                    <div class="h-4 w-full rounded bg-slate-200"></div>
+
+                    <div class="h-4 w-5/6 rounded bg-slate-200"></div>
+
+                    <div class="mt-10 rounded-2xl bg-slate-900 p-5">
+
+                        <div class="h-3 w-24 rounded bg-slate-700"></div>
+
+                        <div class="mt-4 h-3 w-full rounded bg-slate-700"></div>
+
+                        <div class="mt-3 h-3 w-4/5 rounded bg-slate-700"></div>
+
+                        <div class="mt-3 h-3 w-2/3 rounded bg-slate-700"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =============================== -->
+<!-- Built for Modern Learning -->
+<!-- =============================== -->
+
+<section
+    id="features"
+    class="mx-auto max-w-7xl px-8 py-24">
+
+    <div class="mx-auto max-w-3xl text-center">
+
+        <h2
+            class="mt-6 text-4xl font-black tracking-tight">
+
+            Built for modern learning.
+
+        </h2>
+
+        <p
+            class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+
+            Everything you need to stay focused while learning—
+            from AI-generated roadmaps to chapter-wise practice.
+
+        </p>
+
+    </div>
+
+    <div
+        class="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
+        <!-- Card 1 -->
+
+        <div
+            class="group rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+
+            <div
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream/20 text-2xl">
+
+                🧠
+
+            </div>
+
+            <h3
+                class="mt-6 text-xl font-bold">
+
+                AI Course Generation
+
+            </h3>
+
+            <p
+                class="mt-3 leading-7 text-slate-600">
+
+                Generate complete learning paths from a single prompt.
+
+            </p>
+
+        </div>
+
+        <!-- Card 2 -->
+
+        <div
+            class="group rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+
+            <div
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream/20 text-2xl">
+
+                📚
+
+            </div>
+
+            <h3
+                class="mt-6 text-xl font-bold">
+
+                Structured Chapters
+
+            </h3>
+
+            <p
+                class="mt-3 leading-7 text-slate-600">
+
+                Learn with organized modules and chapter-wise content.
+
+            </p>
+
+        </div>
+
+        <!-- Card 3 -->
+
+        <div
+            class="group rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+
+            <div
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream/20 text-2xl">
+
+                💻
+
+            </div>
+
+            <h3
+                class="mt-6 text-xl font-bold">
+
+                Code Examples
+
+            </h3>
+
+            <p
+                class="mt-3 leading-7 text-slate-600">
+
+                Understand concepts through practical code snippets.
+
+            </p>
+
+        </div>
+
+        <!-- Card 4 -->
+
+        <div
+            class="group rounded-3xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+
+            <div
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cream/20 text-2xl">
+
+                🎯
+
+            </div>
+
+            <h3
+                class="mt-6 text-xl font-bold">
+
+                Practice Questions
+
+            </h3>
+
+            <p
+                class="mt-3 leading-7 text-slate-600">
+
+                Reinforce every chapter with curated practice problems.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- What We Do -->
+<!-- =============================== -->
+
+<section
+    id="workflow"
+    class="mx-auto max-w-7xl px-8 pb-24">
+
+    <div
+        class="mx-auto max-w-3xl text-center">
+
+        <h2
+            class="mt-6 text-4xl font-black">
+
+            Designed around your workflow.
+
+        </h2>
+
+        <p
+            class="mt-5 text-lg leading-8 text-slate-600">
+
+            Every part of TextToLearn is designed to help you move
+            from curiosity to confident learning.
+
+        </p>
+
+    </div>
+
+    <div
+        class="mt-16 grid auto-rows-[220px] gap-6 lg:grid-cols-4">
+
+        <!-- Generate -->
+
+<div
+    class="group relative col-span-2 row-span-2 overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-2xl">
+
+    <span
+        class="absolute right-8 top-8 text-xs font-bold tracking-[0.25em] text-slate-400">
+
+        AI
+
+    </span>
+
+    <h3 class="text-3xl font-black">
+
+        Generate Courses
+
+    </h3>
+
+    <p class="mt-3 max-w-md leading-8 text-slate-600">
+
+        Describe any topic and let AI build a structured learning
+        roadmap in seconds.
+
+    </p>
+
+    <div
+        class="mt-10 rounded-3xl border border-slate-200 bg-slate-50 p-6">
+
+        <div class="mb-5 h-4 w-36 rounded bg-slate-300"></div>
+
+        <div class="space-y-4">
+
+            <div class="rounded-xl border border-slate-200 bg-white p-4">
+
+                Data Structures
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="rounded-xl border border-slate-200 bg-white p-4">
+
+                    Intermediate
+
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-white p-4">
+
+                    6 Weeks
+
+                </div>
+
+            </div>
+
+            <div
+                class="rounded-xl bg-primary py-4 text-center font-semibold text-white">
+
+                Generate with AI
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Progress -->
+
+<div
+    class="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+
+    <span
+        class="absolute right-7 top-7 text-xs font-bold tracking-[0.25em] text-slate-400">
+
+        TRACK
+
+    </span>
+
+    <h3 class="text-2xl font-bold">
+
+        Progress
+
+    </h3>
+
+    <div class="mt-8">
+
+        <div class="flex justify-between text-sm">
+
+            <span>
+
+                Learning
+
+            </span>
+
+            <span class="font-bold">
+
+                64%
+
+            </span>
+
+        </div>
+
+        <div
+            class="mt-4 h-3 overflow-hidden rounded-full bg-slate-200">
+
+            <div
+                class="h-full w-2/3 rounded-full bg-accent">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Code -->
+
+<div
+    class="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-primary p-7 text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+
+    <span
+        class="absolute right-7 top-7 text-xs font-bold tracking-[0.25em] text-slate-500">
+
+        CODE
+
+    </span>
+
+    <h3 class="text-2xl font-bold">
+
+        Code Examples
+
+    </h3>
+
+<pre class="mt-8 overflow-hidden text-sm text-green-300"><code>class Node{
+
+public:
+
+    int val;
+
+    Node* left;
+
+};</code></pre>
+
+</div>
+
+
+
+<!-- Chapters -->
+
+<div
+    class="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl">
+
+    <span
+        class="absolute right-7 top-7 text-xs font-bold tracking-[0.25em] text-slate-400">
+
+        LEARN
+
+    </span>
+
+    <h3 class="text-2xl font-bold">
+
+        Chapters
+
+    </h3>
+
+    <div class="mt-7 space-y-3">
+
+        <div class="rounded-xl bg-green-50 p-3">
+
+            ✓ Arrays
+
+        </div>
+
+        <div class="rounded-xl bg-slate-100 p-3">
+
+            Trees
+
+        </div>
+
+        <div class="rounded-xl bg-slate-100 p-3">
+
+            Graphs
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Practice -->
+
+<div
+    class="group relative col-span-2 overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-2xl">
+
+    <span
+        class="absolute right-8 top-8 text-xs font-bold tracking-[0.25em] text-slate-400">
+
+        PRACTICE
+
+    </span>
+
+    <h3 class="text-3xl font-black">
+
+        Practice Questions
+
+    </h3>
+
+    <p class="mt-3 text-slate-600">
+
+        Reinforce every topic with curated coding questions.
+
+    </p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+
+        <div class="rounded-2xl border border-green-200 bg-green-50 p-5">
+
+            🟢 Two Sum
+
+        </div>
+
+        <div class="rounded-2xl border border-yellow-200 bg-yellow-50 p-5">
+
+            🟡 Binary Search
+
+        </div>
+
+        <div class="rounded-2xl border border-red-200 bg-red-50 p-5">
+
+            🔴 LRU Cache
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ====================================== -->
+<!-- Footer -->
+<!-- ====================================== -->
+
+<footer class="border-t border-slate-200 bg-white">
+
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-8 py-10 md:flex-row">
+
+        <div>
+
+            <h2 class="text-2xl font-black tracking-tight">
+
+                <span class="text-accent">
+
+                    Text
+
+                </span>ToLearn
+
+            </h2>
+
+            <p class="mt-2 text-slate-500">
+
+                Structured AI learning for curious minds.
+
+            </p>
+
+        </div>
+
+        <div class="text-sm text-slate-400">
+
+            © <%= new Date().getFullYear() %> TextToLearn
+
+        </div>
+
+    </div>
+
+</footer>
+
+</div>
+
+</body>
+
+</html>

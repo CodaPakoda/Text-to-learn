@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generate Course | TextToLearn</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ["Inter","sans-serif"]
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-[#F8F8F6] font-sans">
+
+<div class="flex min-h-screen">
+
+    <%- include("partials/sidebar") %>
+
+    <main class="flex-1 overflow-y-auto bg-[#F8F8F6]">
+
+        <div class="max-w-6xl mx-auto px-10 py-10">
+
+            <div>
+
+                <h1 class="text-4xl font-bold text-[#222831]">
+
+                    Generate New Course
+
+                </h1>
+
+                <p class="mt-2 text-[#6B7280]">
+
+                    Describe what you want to learn and AI will create a structured learning roadmap.
+
+                </p>
+
+            </div>
+
+            <div class="mt-8">
+
+                <%- include("partials/message") %>
+
+            </div>
+
+            <div class="mt-8 rounded-3xl border border-[#E8E4DC] bg-white p-8 shadow-sm">
+
+                <form
+                    action="/course/generate"
+                    method="POST"
+                    class="space-y-6">
+
+                    <div>
+
+                        <label class="mb-2 block text-sm font-medium text-[#393E46]">
+
+                            Course Title
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Data Structures & Algorithms"
+                            required
+                            class="w-full rounded-xl border border-[#E8E4DC] px-4 py-3 outline-none transition focus:border-[#948979] focus:ring-2 focus:ring-[#DFD0B8]">
+
+                    </div>
+
+                    <div>
+
+                        <label class="mb-2 block text-sm font-medium text-[#393E46]">
+
+                            Description
+
+                        </label>
+
+                        <textarea
+                            name="description"
+                            rows="5"
+                            placeholder="Describe what you want to learn..."
+                            required
+                            class="w-full resize-none rounded-xl border border-[#E8E4DC] px-4 py-3 outline-none transition focus:border-[#948979] focus:ring-2 focus:ring-[#DFD0B8]"></textarea>
+
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+                        <div>
+
+                            <label class="mb-2 block text-sm font-medium text-[#393E46]">
+
+                                Difficulty
+
+                            </label>
+
+                            <select
+                                name="difficulty"
+                                required
+                                class="w-full rounded-xl border border-[#E8E4DC] bg-white px-4 py-3 outline-none transition focus:border-[#948979] focus:ring-2 focus:ring-[#DFD0B8]">
+
+                                <option value="Beginner">Beginner</option>
+
+                                <option value="Intermediate">Intermediate</option>
+
+                                <option value="Advanced">Advanced</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            <label class="mb-2 block text-sm font-medium text-[#393E46]">
+
+                                Duration
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="duration"
+                                placeholder="6 Weeks"
+                                required
+                                class="w-full rounded-xl border border-[#E8E4DC] px-4 py-3 outline-none transition focus:border-[#948979] focus:ring-2 focus:ring-[#DFD0B8]">
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full rounded-xl bg-[#222831] py-3 font-semibold text-white transition hover:bg-[#393E46]">
+
+                        Generate Course
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <% if(preview){ %>
+
+            <div class="mt-10 rounded-3xl border border-[#E8E4DC] bg-white shadow-sm overflow-hidden">
+
+                <div class="border-b border-[#E8E4DC] px-8 py-6">
+
+                    <h2 class="text-2xl font-bold text-[#222831]">
+
+                        Generated Course
+
+                    </h2>
+
+                    <p class="mt-2 text-[#6B7280]">
+
+                        Review your generated roadmap before saving it.
+
+                    </p>
+
+                </div>
+
+                <div class="p-8">
+
+                    <div class="flex flex-wrap items-center gap-3">
+
+                        <h2 class="text-3xl font-bold text-[#222831]">
+
+                            <%= preview.title.replace(/\b[a-z]/g,c=>c.toUpperCase()) %>
+
+                        </h2>
+
+                        <span class="rounded-full border border-[#E8E4DC] bg-[#DFD0B8] px-3 py-1 text-sm font-medium text-[#222831]">
+
+                            <%= preview.difficulty %>
+
+                        </span>
+
+                        <span class="rounded-full border border-[#E8E4DC] bg-[#F8F8F6] px-3 py-1 text-sm font-medium text-[#393E46]">
+
+                            <%= preview.duration %>
+
+                        </span>
+
+                    </div>
+
+                    <p class="mt-5 leading-8 text-[#6B7280]">
+
+                        <%= preview.description %>
+
+                    </p>
+
+                    <div class="mt-10 space-y-4">
+
+                                                <% preview.modules.forEach((module,index)=>{ %>
+
+                        <div class="module-card overflow-hidden rounded-2xl border border-[#E8E4DC] transition-all duration-300 hover:border-[#CAAA98] hover:shadow-sm">
+
+                            <button
+                                type="button"
+                                class="module-toggle flex w-full items-center justify-between bg-white px-6 py-5 text-left">
+
+                                <div>
+
+                                    <p class="text-sm font-medium text-[#948979]">
+
+                                        Module <%= index + 1 %>
+
+                                    </p>
+
+                                    <h3 class="mt-1 text-lg font-semibold text-[#222831]">
+
+                                        <%= module.title %>
+
+                                    </h3>
+
+                                </div>
+
+                                <div class="flex items-center gap-4">
+
+                                    <span class="rounded-full border border-[#E8E4DC] bg-[#F8F8F6] px-3 py-1 text-sm text-[#6B7280]">
+
+                                        <%= module.chapters.length %> Chapters
+
+                                    </span>
+
+                                    <svg
+                                        class="chevron h-5 w-5 text-[#6B7280] transition-transform duration-300"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor">
+
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 9l-7 7-7-7"/>
+
+                                    </svg>
+
+                                </div>
+
+                            </button>
+
+                            <div class="module-content hidden border-t border-[#E8E4DC] bg-[#FAF9F6]">
+
+                                <div class="grid gap-3 p-6">
+
+                                    <% module.chapters.forEach((chapter,chapterIndex)=>{ %>
+
+                                    <div class="flex items-center rounded-xl border border-[#E8E4DC] bg-white px-4 py-3 transition-all duration-300 hover:border-[#CAAA98]">
+
+                                        <div class="mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-[#DFD0B8] text-sm font-semibold text-[#222831]">
+
+                                            <%= chapterIndex + 1 %>
+
+                                        </div>
+
+                                        <span class="font-medium text-[#393E46]">
+
+                                            <%= chapter.title %>
+
+                                        </span>
+
+                                    </div>
+
+                                    <% }) %>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <% }) %>
+
+                        <div class="mt-10 flex flex-wrap gap-4">
+
+                            <form
+                                action="/course/save"
+                                method="POST">
+
+                                <input
+                                    type="hidden"
+                                    name="courseData"
+                                    value='<%- JSON.stringify(preview) %>'>
+
+                                <button
+                                    type="submit"
+                                    class="rounded-xl bg-[#222831] px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-[#393E46]">
+
+                                    Save Course
+
+                                </button>
+
+                            </form>
+
+                            <form
+                                action="/course/discard"
+                                method="POST">
+
+                                <button
+                                    type="submit"
+                                    class="rounded-xl border border-[#E8E4DC] bg-white px-6 py-3 font-semibold text-[#393E46] transition-all duration-300 hover:bg-[#F8F8F6]">
+
+                                    Discard
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                </div>
+
+            </div>
+
+            <% } %>
+
+                        <script>
+
+                document.addEventListener("DOMContentLoaded", () => {
+
+                    const cards = document.querySelectorAll(".module-card");
+
+                    cards.forEach((card, index) => {
+
+                        const toggle = card.querySelector(".module-toggle");
+                        const content = card.querySelector(".module-content");
+                        const chevron = card.querySelector(".chevron");
+
+                        if (index === 0) {
+
+                            content.classList.remove("hidden");
+                            chevron.classList.add("rotate-180");
+
+                        }
+
+                        toggle.addEventListener("click", () => {
+
+                            const isOpen = !content.classList.contains("hidden");
+
+                            cards.forEach((c) => {
+
+                                c.querySelector(".module-content").classList.add("hidden");
+                                c.querySelector(".chevron").classList.remove("rotate-180");
+
+                            });
+
+                            if (!isOpen) {
+
+                                content.classList.remove("hidden");
+                                chevron.classList.add("rotate-180");
+
+                            }
+
+                        });
+
+                    });
+
+                });
+
+            </script>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ongoing Courses | TextToLearn</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    fontFamily: {
+
+                        sans: ["Inter","sans-serif"]
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body class="bg-[#F8F8F6] font-sans">
+
+<div class="flex min-h-screen">
+
+    <%- include("partials/sidebar") %>
+
+    <main class="flex-1 bg-[#F8F8F6]">
+
+        <div class="max-w-6xl mx-auto px-10 py-10">
+
+            <div class="flex items-center justify-between">
+
+                <div>
+
+                    <h1 class="text-4xl font-bold text-[#222831]">
+
+                        Ongoing Courses
+
+                    </h1>
+
+                    <p class="mt-2 text-[#6B7280]">
+
+                        Continue learning where you left off.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="mt-8">
+
+                <%- include("partials/message") %>
+
+            </div>
+
+            <% if(courses.length===0){ %>
+
+            <div class="mt-10 rounded-3xl border border-dashed border-[#E8E4DC] bg-white py-20 text-center">
+
+                <h2 class="text-2xl font-semibold text-[#393E46]">
+
+                    No Ongoing Courses
+
+                </h2>
+
+                <p class="mt-3 text-[#6B7280]">
+
+                    Generate your first AI course to start learning.
+
+                </p>
+
+                <a
+                    href="/course/generate"
+                    class="mt-8 inline-block rounded-xl bg-[#222831] px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-[#393E46]">
+
+                    Generate Course
+
+                </a>
+
+            </div>
+
+            <% }else{ %>
+
+                            <div class="mt-10 grid gap-6">
+
+                <% courses.forEach((course)=>{ %>
+
+                <div class="rounded-3xl border border-[#E8E4DC] bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#CAAA98] hover:shadow-lg">
+
+                    <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+
+                        <div class="flex-1">
+
+                            <div class="flex items-center gap-3">
+
+                                <h2 class="text-2xl font-bold text-[#222831]">
+
+                                    <%= course.title %>
+
+                                </h2>
+
+                                <span class="rounded-full border border-[#E8E4DC] bg-[#DFD0B8] px-3 py-1 text-sm font-medium text-[#222831]">
+
+                                    <%= course.difficulty %>
+
+                                </span>
+
+                            </div>
+
+                            <p class="mt-3 text-[#6B7280]">
+
+                                <%= course.description %>
+
+                            </p>
+
+                            <div class="mt-6">
+
+                                <div class="mb-2 flex items-center justify-between">
+
+                                    <span class="text-sm font-medium text-[#6B7280]">
+
+                                        Progress
+
+                                    </span>
+
+                                    <span class="text-sm font-semibold text-[#948979]">
+
+                                        <%= course.progress %>%
+
+                                    </span>
+
+                                </div>
+
+                                <div class="h-3 overflow-hidden rounded-full bg-[#E8E4DC]">
+
+                                    <div
+                                        class="h-full rounded-full
+                                        <%= course.progress < 10 ? 'bg-red-500'
+                                            : course.progress < 30 ? 'bg-amber-500'
+                                            : course.progress < 90 ? 'bg-[#948979]'
+                                            : 'bg-emerald-500' %>"
+                                        style="width:<%= course.progress %>%">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+
+                            <a
+                                href="/course/<%= course._id %>"
+                                class="rounded-xl bg-[#222831] px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-[#393E46]">
+
+                                Continue
+
+                            </a>
+
+                            <form
+                                action="/course/<%= course._id %>/delete/ongoing"
+                                method="POST">
+
+                                <button
+                                    type="submit"
+                                    onclick="return confirm('Are you sure you want to delete this course?')"
+                                    class="rounded-xl border border-red-200 bg-white px-6 py-3 font-semibold text-[#7A4A4A] transition-all duration-300 hover:bg-[#F7ECEC]">
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                                <% }) %>
+
+            </div>
+
+            <% } %>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>
