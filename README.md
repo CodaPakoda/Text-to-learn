@@ -1,86 +1,138 @@
-# 📚 TextToLearn
+# TextToLearn
 
-> **AI-Powered Personalized Learning Platform**
+**TextToLearn** is an AI-powered personalised learning platform that generates complete learning roadmaps for any topic. Instead of spending hours searching through tutorials, blogs, and videos, users receive a structured course containing modules, chapters, explanations, code examples, practice questions, and curated YouTube resources, all generated in seconds using AI.
 
-TextToLearn is a full-stack web application that generates personalized learning roadmaps using AI. Users can create structured courses on any topic, complete interactive chapters, solve practice problems, track their progress, and continue learning seamlessly.
+### Live Demo
 
----
-
-## ✨ Features
-
-* 🤖 AI-powered course generation
-* 📚 Automatically structured modules and chapters
-* 💻 Code examples with syntax highlighting
-* 🎯 Curated practice questions
-* ▶️ Recommended YouTube resources
-* 📈 Progress tracking
-* ✅ Chapter & course completion
-* 👤 User authentication
-* 📱 Responsive modern UI
-* 🌙 Premium dashboard experience
+**https://text-to-learn-ynxx.onrender.com/**
 
 ---
 
-## 🛠️ Tech Stack
+# Features
 
-### Frontend
+### AI Course Generation
 
-* HTML
-* CSS
-* JavaScript
-* EJS
-* Lucide Icons
+Generate complete learning roadmaps tailored to any topic with customisable difficulty levels and estimated learning duration.
 
-### Backend
+### Structured Learning
 
-* Node.js
-* Express.js
+Courses are automatically divided into well-organised modules and chapters, making complex subjects easier to learn.
 
-### Database
+### Code Examples
 
-* MongoDB
-* Mongoose
+Programming courses include formatted code snippets for better understanding and practical learning.
 
-### APIs
+### Practice Questions
 
-* Google Gemini API
-* YouTube Data API v3
+Each chapter contains carefully selected practice problems to reinforce concepts and improve problem-solving skills.
+
+### YouTube Recommendations
+
+Relevant YouTube tutorials are automatically recommended alongside every chapter for additional learning.
+
+### Progress Tracking
+
+Track chapter completion, monitor overall course progress, and continue learning exactly where you left off.
+
+### User Dashboard
+
+Manage ongoing courses, completed courses, and view your personal learning progress from a clean dashboard.
+
+### Secure Authentication
+
+Create an account, log in securely, and access your personalised learning workspace from anywhere.
 
 ---
 
-## 📂 Project Structure
+# Project Structure
 
-```
-TextToLearn
+```text
+TextToLearn/
+├── config/
+│   ├── ai.js
+│   └── db.js
 │
 ├── controllers/
-├── models/
-├── routes/
+│   ├── authController.js
+│   ├── courseController.js
+│   ├── profileController.js
+│   └── youtubeController.js
+│
 ├── middleware/
-├── services/
+│   └── authMiddleware.js
+│
+├── models/
+│   ├── Course.js
+│   ├── TrustedChannel.js
+│   ├── User.js
+│   └── UserVideoFeedback.js
+│
 ├── public/
 │   ├── css/
-│   ├── js/
-│   └── images/
+│   │   ├── auth.css
+│   │   └── dashboard.css
+│   └── js/
+│       ├── message.js
+│       ├── sidebar.js
+│       └── youtubePlayer.js
+│
+├── routes/
+│   ├── authRoutes.js
+│   ├── courseRoutes.js
+│   ├── profileRoutes.js
+│   └── youtubeRoutes.js
+│
+├── services/
+│   ├── aiService.js
+│   ├── promptService.js
+│   └── youtubeService.js
+│
+├── utils/
+│   └── generateToken.js
 │
 ├── views/
 │   ├── partials/
-│   └── *.ejs
+│   │   ├── message.ejs
+│   │   └── sidebar.ejs
+│   ├── chapter.ejs
+│   ├── completedCourses.ejs
+│   ├── course.ejs
+│   ├── generateCourse.ejs
+│   ├── home.ejs
+│   ├── login.ejs
+│   ├── ongoingCourses.ejs
+│   ├── profile.ejs
+│   └── signup.ejs
 │
-├── config/
-├── utils/
-├── app.js
+├── .env
+├── .gitignore
 ├── package.json
-└── README.md
+├── package-lock.json
+├── README.md
+└── server.js
 ```
 
 ---
 
-## 🚀 Installation
+# Setup Instructions
+
+## Requirements
+
+Node.js (v18+)
+
+MongoDB Atlas
+
+Grok API Key
+
+YouTube Data API v3 Key
 
 Clone the repository
 
-Move into the project directory
+```bash
+git clone https://github.com/CodaPakoda/Text-to-learn.git
+```
+
+Navigate to the project directory
 
 ```bash
 cd TextToLearn
@@ -92,18 +144,18 @@ Install dependencies
 npm install
 ```
 
-Create a `.env` file
+Create a `.env` file in the project root
 
 ```env
 PORT=3000
 
-MONGO_URI=YOUR_MONGODB_URI
+MONGO_URI=your_mongodb_atlas_connection_string
 
-SESSION_SECRET=YOUR_SECRET
+SESSION_SECRET=your_session_secret
 
-GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+GROK_API_KEY=your_grok_api_key
 
-YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
+YOUTUBE_API_KEY=your_youtube_api_key
 ```
 
 Run the application
@@ -118,44 +170,80 @@ or
 npm run dev
 ```
 
-Visit
+For the deployed application, visit:
 
-```
-http://localhost:3000
-```
+**https://text-to-learn-ynxx.onrender.com/**
 
 ---
 
-## 📸 Features Overview
+# Tech Stack
 
-* AI-generated personalized courses
-* Interactive learning dashboard
-* Modular course structure
-* Progress analytics
-* Practice questions
-* Embedded learning videos
-* User profile dashboard
-* Completed courses history
+### Frontend
+
+HTML5
+
+CSS3
+
+JavaScript
+
+EJS
+
+Lucide Icons
+
+### Backend
+
+Node.js
+
+Express.js
+
+### Database
+
+MongoDB Atlas
+
+Mongoose
+
+### APIs
+
+Grok API
+
+YouTube Data API v3
+
+### Deployment
+
+Render
 
 ---
 
-## 🔮 Future Improvements
+# Future Improvements
 
-* AI quiz generation
-* Flashcards
-* Notes export (PDF)
-* Course sharing
-* Certificates
-* Dark mode
-* Learning streaks
-* Leaderboards
-* Mobile application
+AI-generated quizzes
+
+Flashcards and revision mode
+
+PDF course export
+
+Dark mode
+
+Learning streaks
+
+Certificates
+
+Course sharing
+
+Notes and bookmarking
+
+Multi-language support
+
+AI doubt-solving assistant
+
+Mobile application
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Aryan Varshney**
+
 **Bhavya Rastogi**
 
 Computer Science Engineering Student
@@ -164,8 +252,4 @@ Delhi Technological University
 
 ---
 
-## 📄 License
-
-This project is developed for educational purposes and personal learning.
-
-Feel free to fork, improve, and build upon it.
+⭐ If you found this project interesting, consider giving it a star on GitHub!
